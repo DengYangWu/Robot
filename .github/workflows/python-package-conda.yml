@@ -34,6 +34,6 @@ jobs:
         run: |
           sudo cp -p ./chrome/chromedriver /usr/bin/
           chmod -R 777 /usr/bin/chromedriver
-          python ./webTest.py
+          pytest ./webTest.py
          
 
