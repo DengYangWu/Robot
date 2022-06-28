@@ -25,21 +25,28 @@ class TestClass:
     @classmethod
     def setup_class(self):
         chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-gpu')
-        chrome_options.add_argument('--disable-dev-shm-usage')
+        # chrome_options.add_argument('--headless')
+        # chrome_options.add_argument('--no-sandbox')
+        # chrome_options.add_argument('--disable-gpu')
+        # chrome_options.add_argument('--disable-dev-shm-usage')
+        # # chromedriver = "/usr/bin/chromedriver"
         # chromedriver = "/usr/bin/chromedriver"
-        chromedriver = "/usr/bin/chromedriver"
-        # 添加保持登录的数据路径：安装目录一般在C:\Users\****\AppData\Local\Google\Chrome\User Data
+        # # 添加保持登录的数据路径：安装目录一般在C:\Users\****\AppData\Local\Google\Chrome\User Data
         chrome_options.add_argument(r"user-data-dir=C:\Users\yangw\AppData\Local\Google\Chrome\User Data_Backup")
-        self.driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=chromedriver)
+        # self.driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=chromedriver)
+        # chrome_options = webdriver.ChromeOptions()
+        # chrome_options.add_argument('--headless')
+        # chrome_options.add_argument('--no-sandbox')
+        # chrome_options.add_argument('--disable-gpu')
+        # chrome_options.add_argument('--disable-dev-shm-usage')
+        # chromedriver = "C:\Chromedriver\chromedriver.exe"
+        self.driver = webdriver.Chrome(chrome_options=chrome_options)
 
     @allure.story('打开black ide客户端')
     def test_open(self):
         # try:
-        self.driver.get("https://eth-test.ide.black")
-        # self.driver.get("https://ide.black")
+        # self.driver.get("https://eth-test.ide.black")
+        self.driver.get("https://ide.black")
         logging.info("正在进入web页面~~~")
         # self.driver.find_element('xpath', '//button[@class="btn btn-primary btn-sm")]').click()
 
@@ -60,7 +67,8 @@ class TestClass:
         wait.until(EC.visibility_of(self.driver.find_element(By.XPATH, xpath_exp)))
 
     @allure.story('进入github登录页面')
-    def test_github_login(self):
+    def github_login(self):
+
         self.driver.find_element('css selector', '.btn.btn-primary.btn-sm').click()
         # element = WebDriverWait(self.driver, 10).until(
         #     EC.presence_of_element_located((By.XPATH, '//*[@class="CircleBadge-icon"]'))
@@ -70,13 +78,14 @@ class TestClass:
         # assert element, '未进入到github登录页~'
 
     @allure.story('登录')
-    def test_login(self):
+    def login(self):
+        time.sleep(5)
         self.driver.find_element('css selector', '.btn.btn-primary.btn-sm.btn-flat').click()
         # githubLogin = self.driver.find_elements('css selector', ".octicon.octicon-mark-github")
         self.driver.find_element(By.ID, 'login_field').send_keys('dengyw1313')
         self.driver.find_element(By.ID, 'password').send_keys('12345678dyw')
         self.driver.find_element('css selector', '.btn.btn-primary.btn-block.js-sign-in-button').click()
-        time.sleep(5)
+        time.sleep(10)
         btn = self.driver.find_elements(By.ID, 'js-oauth-authorize-btn')
         if len(btn) == 0:
             logging.info("不存在authorize选项，进行执行")
@@ -85,7 +94,7 @@ class TestClass:
             logging.info("存在authorize选项，需点击authorize")
             self.driver.find_element(By.ID, 'js-oauth-authorize-btn').click()
         # 等待登录
-        time.sleep(4)
+        time.sleep(10)
         # 登录成功后弹框
         loginSuccess = self.driver.find_elements('css selector', '.modal-title')
         # 隐藏弹框
@@ -99,10 +108,11 @@ class TestClass:
                 logging.info("不存在弹窗，进行执行~")
         else:
             logging.info("登录失败")
-            assert loginSuccess, "--------登录失败---------"
+            # assert loginSuccess, "--------登录失败---------"
 
     @allure.story('创建密钥对（钱包）')
-    def test_CreateKeyPair(self):
+    def CreateKeyPair(self):
+        time.sleep(5)
         self.driver.find_element(By.ID, 'keypair-manager').click()
         self.driver.implicitly_wait(10)
         KeyName = self.driver.find_elements('css selector', '.text-truncate')[0].text
@@ -155,7 +165,7 @@ class TestClass:
 
     @allure.story('创建项目-Coin')
     def test_CreateProject(self):
-        time.sleep(5)
+        time.sleep(8)
         projectName = self.driver.find_elements(By.XPATH, '//h5[text()="DemoText"]')
         if projectName == '':
             time.sleep(5)
@@ -213,6 +223,7 @@ class TestClass:
     @allure.story('部署')
     def test_deploy(self):
         # 点击部署
+        time.sleep(5)
         self.driver.find_element(By.ID, 'toolbar-btn-deploy').click()
         time.sleep(5)
         # 点击预估
