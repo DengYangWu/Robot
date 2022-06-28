@@ -67,7 +67,7 @@ class TestClass:
         wait.until(EC.visibility_of(self.driver.find_element(By.XPATH, xpath_exp)))
 
     @allure.story('进入github登录页面')
-    def github_login(self):
+    def test_github_login(self):
 
         self.driver.find_element('css selector', '.btn.btn-primary.btn-sm').click()
         # element = WebDriverWait(self.driver, 10).until(
@@ -195,7 +195,7 @@ class TestClass:
         #     assert CoinReadme, '创建项目失败~'
 
     @allure.story('Coin编译')
-    def Build_Coin(self):
+    def test_Build_Coin(self):
         self.driver.find_element(By.ID, 'tooltip-build-btn').click()
         time.sleep(5)
         build = self.driver.find_elements(By.XPATH, '//span[text()="build"]')
