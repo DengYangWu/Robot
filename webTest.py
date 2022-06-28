@@ -111,7 +111,7 @@ class TestClass:
             # assert loginSuccess, "--------登录失败---------"
 
     @allure.story('创建密钥对（钱包）')
-    def test_CreateKeyPair(self):
+    def CreateKeyPair(self):
         time.sleep(5)
         self.driver.find_element(By.ID, 'keypair-manager').click()
         self.driver.implicitly_wait(10)
