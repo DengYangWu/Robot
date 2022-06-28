@@ -78,7 +78,7 @@ class TestClass:
         # assert element, '未进入到github登录页~'
 
     @allure.story('登录')
-    def login(self):
+    def test_login(self):
         time.sleep(5)
         self.driver.find_element('css selector', '.btn.btn-primary.btn-sm.btn-flat').click()
         # githubLogin = self.driver.find_elements('css selector', ".octicon.octicon-mark-github")
@@ -111,7 +111,7 @@ class TestClass:
             # assert loginSuccess, "--------登录失败---------"
 
     @allure.story('创建密钥对（钱包）')
-    def CreateKeyPair(self):
+    def test_CreateKeyPair(self):
         time.sleep(5)
         self.driver.find_element(By.ID, 'keypair-manager').click()
         self.driver.implicitly_wait(10)
