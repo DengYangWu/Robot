@@ -32,7 +32,7 @@ class TestClass:
         # # chromedriver = "/usr/bin/chromedriver"
         # chromedriver = "/usr/bin/chromedriver"
         # # 添加保持登录的数据路径：安装目录一般在C:\Users\****\AppData\Local\Google\Chrome\User Data
-        chrome_options.add_argument(r"user-data-dir=C:\Users\yangw\AppData\Local\Google\Chrome\User Data_Backup")
+        # chrome_options.add_argument(r"user-data-dir=C:\Users\yangw\AppData\Local\Google\Chrome\User Data_Backup")
         # self.driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=chromedriver)
         # chrome_options = webdriver.ChromeOptions()
         # chrome_options.add_argument('--headless')
