@@ -12,7 +12,7 @@ from selenium.webdriver import ActionChains
 # from selenium.webdriver.common.action_chains import ActionChains
 import allure
 import logging
-
+import os
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 import selenium.webdriver.support.expected_conditions as EC
@@ -30,7 +30,7 @@ class TestClass:
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--disable-dev-shm-usage')
         # # chromedriver = "/usr/bin/chromedriver"
-        chromedriver = "/usr/bin/chromedriver"
+        # chromedriver = ""
         # # 添加保持登录的数据路径：安装目录一般在C:\Users\****\AppData\Local\Google\Chrome\User Data
         # chrome_options.add_argument(r"user-data-dir=C:\Users\yangw\AppData\Local\Google\Chrome\User Data_Backup")
         # self.driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=chromedriver)
@@ -40,7 +40,7 @@ class TestClass:
         # chrome_options.add_argument('--disable-gpu')
         # chrome_options.add_argument('--disable-dev-shm-usage')
         # chromedriver = "C:\Chromedriver\chromedriver.exe"
-        self.driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=chromedriver)
+        self.driver = webdriver.Chrome('/usr/bin/chromedriver', options=chrome_options)
 
     @allure.story('打开black ide客户端')
     def test_open(self):
