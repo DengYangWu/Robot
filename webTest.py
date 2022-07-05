@@ -163,7 +163,7 @@ class TestClass:
     def test_CreateProject(self):
         time.sleep(8)
         # projectName = self.driver.find_elements(By.XPATH, '//h5[text()="DemoText"]')
-        projectName = self.driver.find_elements('css selector', '.mb-1.flex-row-center')[1]
+        projectName = self.driver.find_elements('css selector', '.mb-1.flex-row-center')
         print(projectName)
         if projectName == '':
             time.sleep(5)
@@ -178,7 +178,7 @@ class TestClass:
             self.driver.find_element('css selector', '.ml-2.btn.btn-primary').click()
             # self.driver.find_element(By.XPATH, '//button[text()="Create Project"]').click()
         else:
-            self.driver.find_elements('css selector', '.mb-1.flex-row-center')[1].click()
+            self.driver.find_element('css selector', '.mb-1.flex-row-center').click()
             # TestClass.visibility_by_xpath(self, "//h1[@id='coin']")
             # time.sleep(10)
             logging.info("已创建DemoTest,进入该项目~~")
