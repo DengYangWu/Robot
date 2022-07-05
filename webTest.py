@@ -178,7 +178,7 @@ class TestClass:
             self.driver.find_element('css selector', '.ml-2.btn.btn-primary').click()
             # self.driver.find_element(By.XPATH, '//button[text()="Create Project"]').click()
         else:
-            self.driver.find_elements('css selector', '.mb-1.flex-row-center').click()
+            self.driver.find_elements('css selector', '.mb-1.flex-row-center')[0].click()
             # TestClass.visibility_by_xpath(self, "//h1[@id='coin']")
             # time.sleep(10)
             logging.info("已创建DemoTest,进入该项目~~")
