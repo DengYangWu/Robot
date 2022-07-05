@@ -21,12 +21,12 @@ import selenium.webdriver.support.ui as ui
 
 @allure.epic('black ide-Web端')
 class TestClass:
-    @classmethod
-#     def setup_class(self):
-#         option = webdriver.ChromeOptions()
-#         # 添加保持登录的数据路径：安装目录一般在C:\Users\****\AppData\Local\Google\Chrome\User Data
-#         # option.add_argument(r"user-data-dir=C:\Users\yangw\AppData\Local\Google\Chrome\User Data_Backup")
-#         self.driver = webdriver.Chrome(options=option)
+    # @classmethod
+    # def setup_class(self):
+    #     option = webdriver.ChromeOptions()
+    #     # 添加保持登录的数据路径：安装目录一般在C:\Users\****\AppData\Local\Google\Chrome\User Data
+    #     # option.add_argument(r"user-data-dir=C:\Users\yangw\AppData\Local\Google\Chrome\User Data_Backup")
+    #     self.driver = webdriver.Chrome(options=option)
     @classmethod
     def setup_class(self):
         chrome_options = webdriver.ChromeOptions()
