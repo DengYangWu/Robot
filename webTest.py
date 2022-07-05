@@ -16,6 +16,7 @@ import os
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 import selenium.webdriver.support.expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
 import selenium.webdriver.support.ui as ui
 
 
@@ -34,18 +35,8 @@ class TestClass:
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--disable-dev-shm-usage')
-        # # chromedriver = "/usr/bin/chromedriver"
-        # chromedriver = ""
-        # # 添加保持登录的数据路径：安装目录一般在C:\Users\****\AppData\Local\Google\Chrome\User Data
-        # chrome_options.add_argument(r"user-data-dir=C:\Users\yangw\AppData\Local\Google\Chrome\User Data_Backup")
-        # self.driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=chromedriver)
-        # chrome_options = webdriver.ChromeOptions()
-        # chrome_options.add_argument('--headless')
-        # chrome_options.add_argument('--no-sandbox')
-        # chrome_options.add_argument('--disable-gpu')
-        # chrome_options.add_argument('--disable-dev-shm-usage')
-        # chromedriver = "C:\Chromedriver\chromedriver.exe"
-        self.driver = webdriver.Chrome('/usr/bin/chromedriver', options=chrome_options)
+        s = Service('/usr/bin/chromedriver')
+        self.driver = webdriver.Chrome(service=s, options=chrome_options)
 
     @allure.story('打开black ide客户端')
     def test_open(self):
@@ -78,7 +69,7 @@ class TestClass:
         # element = WebDriverWait(self.driver, 10).until(
         #     EC.presence_of_element_located((By.XPATH, '//*[@class="CircleBadge-icon"]'))
         # )
-        self.driver.back()
+        # self.driver.back()
         logging.info("已进入到github登录界面进行登录操作~")
         # assert element, '未进入到github登录页~'
 
@@ -115,41 +106,41 @@ class TestClass:
             logging.info("登录失败")
             # assert loginSuccess, "--------登录失败---------"
 
-    @allure.story('创建密钥对（钱包）')
-    def CreateKeyPair(self):
-        time.sleep(5)
-        self.driver.find_element(By.ID, 'keypair-manager').click()
-        self.driver.implicitly_wait(10)
-        KeyName = self.driver.find_elements('css selector', '.text-truncate')[0].text
-        # 点击密钥对按钮
-        # self.driver.find_element('css selector', '.btn.btn-primary.btn-sm.btn-flat').click()
-        if KeyName != 'MyWallet':
-
-            # 点击Create
-            self.driver.find_element('css selector', '.mr-2.btn.btn-success').click()
-            # 输入密钥名称
-            self.driver.find_element('css selector', '.form-control').send_keys('MyWallet')
-            time.sleep(3)
-            # 点击创建
-            self.driver.find_element('css selector', '.ml-2.btn.btn-primary').click()
-            # 等待创建成功
-            time.sleep(5)
-            # self.driver.find_element('css selector', '.ml-2.btn.btn-primary').click()
-            # 弹窗-信息通知notification-message
-            # 判断是否添加密钥对成功
-            KeyName = self.driver.find_elements('css selector', '.text-truncate')[0].text
-            print(KeyName)
-            if KeyName == 'MyWallet':
-                logging.info("密钥对添加成功，已在列表内")
-                # 隐藏密钥对列表弹窗
-                # self.driver.find_element(By.XPATH, '//button[text()="Cancel"]').click()
-                # self.driver.find_element('css selector', '.btn.btn-default').click()
-            else:
-                logging.info("密钥对添加失败")
-            assert KeyName, "密钥对添加失败"
-        else:
-            self.driver.find_element('css selector', '.close').click()
-            logging.info("已存在MyWallet钱包，无需再次创建~~")
+    # @allure.story('创建密钥对（钱包）')
+    # def test_CreateKeyPair(self):
+    #     time.sleep(8)
+    #     self.driver.find_element(By.ID, 'keypair-manager').click()
+    #     self.driver.implicitly_wait(10)
+    #     KeyName = self.driver.find_elements('css selector', '.text-truncate')[0].text
+    #     # 点击密钥对按钮
+    #     # self.driver.find_element('css selector', '.btn.btn-primary.btn-sm.btn-flat').click()
+    #     if KeyName != 'MyWallet':
+    #
+    #         # 点击Create
+    #         self.driver.find_element('css selector', '.mr-2.btn.btn-success').click()
+    #         # 输入密钥名称
+    #         self.driver.find_element('css selector', '.form-control').send_keys('MyWallet')
+    #         time.sleep(3)
+    #         # 点击创建
+    #         self.driver.find_element('css selector', '.ml-2.btn.btn-primary').click()
+    #         # 等待创建成功
+    #         time.sleep(5)
+    #         # self.driver.find_element('css selector', '.ml-2.btn.btn-primary').click()
+    #         # 弹窗-信息通知notification-message
+    #         # 判断是否添加密钥对成功
+    #         KeyName = self.driver.find_elements('css selector', '.text-truncate')[0].text
+    #         print(KeyName)
+    #         if KeyName == 'MyWallet':
+    #             logging.info("密钥对添加成功，已在列表内")
+    #             # 隐藏密钥对列表弹窗
+    #             # self.driver.find_element(By.XPATH, '//button[text()="Cancel"]').click()
+    #             # self.driver.find_element('css selector', '.btn.btn-default').click()
+    #         else:
+    #             logging.info("密钥对添加失败")
+    #         assert KeyName, "密钥对添加失败"
+    #     else:
+    #         self.driver.find_element('css selector', '.close').click()
+    #         logging.info("已存在MyWallet钱包，无需再次创建~~")
         # self.driver.find_element(By.XPATH, '//div[@text="Create"]').click()
 
     # @allure.story('删除密钥')
@@ -169,8 +160,8 @@ class TestClass:
     #     logging.info("删除密钥成功~")
 
     @allure.story('创建项目-Coin')
-    def CreateProject(self):
-        time.sleep(30)
+    def test_CreateProject(self):
+        time.sleep(8)
         # projectName = self.driver.find_elements(By.XPATH, '//h5[text()="DemoText"]')
         projectName = self.driver.find_elements('css selector', '.mb-1.flex-row-center')[1]
         if projectName == '':
@@ -201,7 +192,7 @@ class TestClass:
         #     assert CoinReadme, '创建项目失败~'
 
     @allure.story('Coin编译')
-    def Build_Coin(self):
+    def test_Build_Coin(self):
         self.driver.find_element(By.ID, 'tooltip-build-btn').click()
         time.sleep(5)
         build = self.driver.find_elements(By.XPATH, '//span[text()="build"]')
@@ -213,7 +204,7 @@ class TestClass:
             self.driver.find_element(By.ID, 'tooltip-build-btn').click()
 
     @allure.story('连接网络')
-    def Link_Network(self):
+    def test_Link_Network(self):
         self.driver.find_element(By.XPATH, '//*[text()="Network"]').click()
         self.driver.find_elements('css selector', '.nav-dropdown-toggle.p-0.dropdown-toggle')[3].click()
         time.sleep(2)
@@ -227,7 +218,7 @@ class TestClass:
         self.driver.find_element('css selector', '.nav-link-content').click()
 
     @allure.story('部署')
-    def deploy(self):
+    def test_deploy(self):
         # 点击部署
         time.sleep(5)
         self.driver.find_element(By.ID, 'toolbar-btn-deploy').click()
