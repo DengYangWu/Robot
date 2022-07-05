@@ -170,7 +170,7 @@ class TestClass:
 
     @allure.story('创建项目-Coin')
     def test_CreateProject(self):
-        time.sleep(8)
+        time.sleep(30)
         # projectName = self.driver.find_elements(By.XPATH, '//h5[text()="DemoText"]')
         projectName = self.driver.find_elements('css selector', '.mb-1.flex-row-center')[1]
         if projectName == '':
