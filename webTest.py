@@ -169,7 +169,7 @@ class TestClass:
     #     logging.info("删除密钥成功~")
 
     @allure.story('创建项目-Coin')
-    def test_CreateProject(self):
+    def CreateProject(self):
         time.sleep(30)
         # projectName = self.driver.find_elements(By.XPATH, '//h5[text()="DemoText"]')
         projectName = self.driver.find_elements('css selector', '.mb-1.flex-row-center')[1]
@@ -201,7 +201,7 @@ class TestClass:
         #     assert CoinReadme, '创建项目失败~'
 
     @allure.story('Coin编译')
-    def test_Build_Coin(self):
+    def Build_Coin(self):
         self.driver.find_element(By.ID, 'tooltip-build-btn').click()
         time.sleep(5)
         build = self.driver.find_elements(By.XPATH, '//span[text()="build"]')
@@ -213,7 +213,7 @@ class TestClass:
             self.driver.find_element(By.ID, 'tooltip-build-btn').click()
 
     @allure.story('连接网络')
-    def test_Link_Network(self):
+    def Link_Network(self):
         self.driver.find_element(By.XPATH, '//*[text()="Network"]').click()
         self.driver.find_elements('css selector', '.nav-dropdown-toggle.p-0.dropdown-toggle')[3].click()
         time.sleep(2)
@@ -227,7 +227,7 @@ class TestClass:
         self.driver.find_element('css selector', '.nav-link-content').click()
 
     @allure.story('部署')
-    def test_deploy(self):
+    def deploy(self):
         # 点击部署
         time.sleep(5)
         self.driver.find_element(By.ID, 'toolbar-btn-deploy').click()
