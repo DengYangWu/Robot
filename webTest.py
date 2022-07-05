@@ -164,6 +164,7 @@ class TestClass:
         time.sleep(8)
         # projectName = self.driver.find_elements(By.XPATH, '//h5[text()="DemoText"]')
         projectName = self.driver.find_elements('css selector', '.mb-1.flex-row-center')[1]
+        print(projectName)
         if projectName == '':
             time.sleep(5)
             # 点击New，新建项目
