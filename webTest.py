@@ -69,13 +69,13 @@ class TestClass:
         # element = WebDriverWait(self.driver, 10).until(
         #     EC.presence_of_element_located((By.XPATH, '//*[@class="CircleBadge-icon"]'))
         # )
-        # self.driver.back()
+        self.driver.back()
         logging.info("已进入到github登录界面进行登录操作~")
         # assert element, '未进入到github登录页~'
 
     @allure.story('登录')
     def test_login(self):
-        time.sleep(5)
+        time.sleep(8)
         self.driver.find_element('css selector', '.btn.btn-primary.btn-sm.btn-flat').click()
         # githubLogin = self.driver.find_elements('css selector', ".octicon.octicon-mark-github")
         self.driver.find_element(By.ID, 'login_field').send_keys('dengyw1313')
