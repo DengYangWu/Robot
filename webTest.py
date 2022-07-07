@@ -69,14 +69,14 @@ class TestClass:
         # element = WebDriverWait(self.driver, 10).until(
         #     EC.presence_of_element_located((By.XPATH, '//*[@class="CircleBadge-icon"]'))
         # )
-        self.driver.back()
+        # self.driver.back()
         logging.info("已进入到github登录界面进行登录操作~")
         # assert element, '未进入到github登录页~'
 
     @allure.story('登录')
     def test_login(self):
         time.sleep(8)
-        self.driver.find_element('css selector', '.btn.btn-primary.btn-sm.btn-flat').click()
+        # self.driver.find_element('css selector', '.btn.btn-primary.btn-sm.btn-flat').click()
         # githubLogin = self.driver.find_elements('css selector', ".octicon.octicon-mark-github")
         self.driver.find_element(By.ID, 'login_field').send_keys('dengyw1313')
         self.driver.find_element(By.ID, 'password').send_keys('12345678dyw')
@@ -162,7 +162,7 @@ class TestClass:
     @allure.story('创建项目-Coin')
     def test_CreateProject(self):
         time.sleep(20)
-        self.driver.find_element(By.XPATH, '//button[text()="Cancel"]').click()
+        # self.driver.find_element(By.XPATH, '//button[text()="Cancel"]').click()
         # projectName = self.driver.find_elements(By.XPATH, '//h5[text()="DemoText"]')
         projectName = self.driver.find_elements('css selector', '.mb-1.flex-row-center')
         print(projectName)
