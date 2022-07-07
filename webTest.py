@@ -162,6 +162,7 @@ class TestClass:
     @allure.story('创建项目-Coin')
     def test_CreateProject(self):
         time.sleep(20)
+        self.driver.find_element(By.XPATH, '//button[text()="Cancel"]').click()
         # projectName = self.driver.find_elements(By.XPATH, '//h5[text()="DemoText"]')
         projectName = self.driver.find_elements('css selector', '.mb-1.flex-row-center')
         print(projectName)
