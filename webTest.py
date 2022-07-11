@@ -104,7 +104,7 @@ class TestClass:
             logging.info("存在authorize选项，需点击authorize")
             self.driver.find_element(By.ID, 'js-oauth-authorize-btn').click()
         # 等待登录
-        time.sleep(10)
+        time.sleep(15)
 
         # 点击个人头像
         self.driver.find_element('css selector', '.nav-dropdown-toggle.px-2').click()
