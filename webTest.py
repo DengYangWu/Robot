@@ -36,7 +36,7 @@ class TestClass:
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--disable-dev-shm-usage')
-        s = Service('C:\Users\AppData\Local\Google\Chrome\Application')
+        s = Service('C:\Users\AppData\Local\Google\Chrome\Application\chromedriver.exe')
         self.driver = webdriver.Chrome(service=s, options=chrome_options)
 #     @classmethod
 #     def setup_class(self):
