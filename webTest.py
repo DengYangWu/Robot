@@ -55,6 +55,32 @@ class TestClass:
     #         chrome_options.add_argument('--disable-dev-shm-usage')
     #         # s = Service('/usr/bin/chromedriver')
     #         self.driver = webdriver.Chrome(options=chrome_options)
+=======
+    # @classmethod
+    # def setup_class(self):
+    #     option = webdriver.ChromeOptions()
+    #     # 添加保持登录的数据路径：安装目录一般在C:\Users\****\AppData\Local\Google\Chrome\User Data
+    #     # option.add_argument(r"user-data-dir=C:\Users\yangw\AppData\Local\Google\Chrome\User Data_Backup")
+    #     self.driver = webdriver.Chrome(options=option)
+#
+#     @classmethod
+#     def setup_class(self):
+#         chrome_options = webdriver.ChromeOptions()
+#         chrome_options.add_argument('--headless')
+#         chrome_options.add_argument('--no-sandbox')
+#         chrome_options.add_argument('--disable-gpu')
+#         chrome_options.add_argument('--disable-dev-shm-usage')
+#         s = Service('C:\Users\AppData\Local\Google\Chrome\Application\chromedriver.exe')
+#         self.driver = webdriver.Chrome(service=s, options=chrome_options)
+    @classmethod
+    def setup_class(self):
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        # s = Service('/usr/bin/chromedriver')
+        self.driver = webdriver.Chrome(options=chrome_options)
     @allure.story('打开black ide客户端')
     def test_open(self):
         # try:
