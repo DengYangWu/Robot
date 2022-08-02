@@ -19,9 +19,43 @@ import selenium.webdriver.support.expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 import selenium.webdriver.support.ui as ui
 
+import Tools.Build
+import Tools.NetworkSwitch
+import Tools.Deploy
+import Tools.DeleteProject
+# from Tools.Build import *
+
+import PageOperation.Contract
+
 
 @allure.epic('black ide-Web端')
 class TestClass:
+    @classmethod
+    def setup_class(self):
+        option = webdriver.ChromeOptions()
+        # 添加保持登录的数据路径：安装目录一般在C:\Users\****\AppData\Local\Google\Chrome\User Data
+        # option.add_argument(r"user-data-dir=C:\Users\yangw\AppData\Local\Google\Chrome\User Data_Backup")
+        self.driver = webdriver.Chrome(options=option)
+
+    # @classmethod
+    # def setup_class(self):
+    #     chrome_options = webdriver.ChromeOptions()
+    #     chrome_options.add_argument('--headless')
+    #     chrome_options.add_argument('--no-sandbox')
+    #     chrome_options.add_argument('--disable-gpu')
+    #     chrome_options.add_argument('--disable-dev-shm-usage')
+    #     s = Service('/usr/bin/chromedriver')
+    #     self.driver = webdriver.Chrome(service=s, options=chrome_options)
+    #     @classmethod
+    #     def setup_class(self):
+    #         chrome_options = webdriver.ChromeOptions()
+    #         chrome_options.add_argument('--headless')
+    #         chrome_options.add_argument('--no-sandbox')
+    #         chrome_options.add_argument('--disable-gpu')
+    #         chrome_options.add_argument('--disable-dev-shm-usage')
+    #         # s = Service('/usr/bin/chromedriver')
+    #         self.driver = webdriver.Chrome(options=chrome_options)
+=======
     # @classmethod
     # def setup_class(self):
     #     option = webdriver.ChromeOptions()
@@ -60,16 +94,6 @@ class TestClass:
         self.driver.find_element('css selector', '.button_white.w-button').click()
 
         self.driver.implicitly_wait(10)
-        # time.sleep(1)
-        # search_window = self.driver.current_window_handle  # 此行代码用来定位当前页面
-        # blackIcon = self.driver.find_element('css selector','.CircleBadge-icon')
-        # self.driver.implicitly_wait(10)  #等待加载
-
-        # assert black_web, '未进入到ide页面~'
-        # except:
-        #     print("打开了，浏览器~")
-        # finally:
-        #     self.driver.quit()
 
     def visibility_by_xpath(self, xpath_exp):  # 传入元素Xpath进行显式等待，等待可见
         wait = WebDriverWait(self.driver, 20, 0.2)
@@ -79,18 +103,13 @@ class TestClass:
     def test_github_login(self):
 
         self.driver.find_element('css selector', '.btn.btn-primary.btn-sm').click()
-        # element = WebDriverWait(self.driver, 10).until(
-        #     EC.presence_of_element_located((By.XPATH, '//*[@class="CircleBadge-icon"]'))
-        # )
-        # self.driver.back()
+
         logging.info("已进入到github登录界面进行登录操作~")
         # assert element, '未进入到github登录页~'
 
     @allure.story('登录')
     def test_login(self):
         time.sleep(10)
-        # self.driver.find_element('css selector', '.btn.btn-primary.btn-sm.btn-flat').click()
-        # githubLogin = self.driver.find_elements('css selector', ".octicon.octicon-mark-github")
         self.driver.find_element(By.ID, 'login_field').send_keys('WhisperGmail')
 
         self.driver.find_element(By.ID, 'password').send_keys('12345678dyw')
@@ -162,100 +181,78 @@ class TestClass:
             logging.info("已存在MyWallet钱包，无需再次创建~~")
         self.driver.find_element(By.XPATH, '//div[@text="Create"]').click()
 
-    # @allure.story('删除密钥')
-    # def test_deleteKeypair(self):
-    #     # 点击密钥对按钮
-    #     self.driver.find_element('css selector', '.btn.btn-primary.btn-sm.btn-flat').click()
-    #     time.sleep(3)
-    #     # 双击按钮删除密钥对
-    #     #source = self.driver.find_element('css selector', '.far.fa-trash-alt')
-    #
-    #     # source = self.driver.find_element('css selector', '.far.fa-trash-alt')
-    #     # csource = self.driver.find_element(By.XPATH, '//tr[@class="hover-flex"]//td[3]')
-    #     mo = self.driver.find_element('css selector', '.small')
-    #     ActionChains(self.driver).move_to_element(mo).perform()
-    #     #ActionChains(self.driver).double_click(source).perform()
-    #     time.sleep(3)
-    #     logging.info("删除密钥成功~")
-
     @allure.story('创建项目-Coin')
-    def test_CreateProject(self):
+    def CreateProject(self):
         time.sleep(8)
         # projectName = self.driver.find_elements(By.XPATH, '//h5[text()="DemoText"]')
-        projectname = self.driver.find_elements(By.XPATH, "//h5[text()='DemoTest']")
+        projectname = self.driver.find_elements(By.XPATH, "//h5[text()='Coin']")
         print(projectname)
-        if projectname == '':
+        if projectname == []:
             time.sleep(5)
             # 点击New，新建项目
             self.driver.find_element('css selector', '.btn.btn-success').click()
             time.sleep(5)
             # 输入项目名称
             self.driver.find_element('css selector', '.form-control').clear()
-            self.driver.find_element('css selector', '.form-control').send_keys('DemoTest')
+            self.driver.find_element('css selector', '.form-control').send_keys('Coin')
             time.sleep(5)
             # 点击Create Project
             self.driver.find_element('css selector', '.ml-2.btn.btn-primary').click()
             # self.driver.find_element(By.XPATH, '//button[text()="Create Project"]').click()
         else:
-            self.driver.find_element(By.XPATH, "//h5[text()='DemoTest']").click()
+            self.driver.find_element(By.XPATH, "//h5[text()='Coin']").click()
             # TestClass.visibility_by_xpath(self, "//h1[@id='coin']")
             time.sleep(20)
             logging.info("已创建DemoTest,进入该项目~~")
 
-        # 判断项目是否创建成功
-        # CoinReadme = self.driver.find_element(By.ID, 'coin').text
-        # print(CoinReadme)
-        # if CoinReadme == 'Coin':
-        #     logging.info('项目已创建成功！！')
-        # else:
-        #     logging.info('项目已创建失败！！')
-        #     assert CoinReadme, '创建项目失败~'
-
-    @allure.story('Coin编译')
-    def test_Build_Coin(self):
-        time.sleep(5)
-        self.driver.find_element(By.ID, 'tooltip-build-btn').click()
-        time.sleep(5)
-        build = self.driver.find_elements(By.XPATH, '//span[text()="build"]')
-        print(build)
-        if build != '':
-            print('已build')
+    @allure.story('创建ERC20')
+    def test_OpenOrCreate_ERC20(self):
+        # 点击个人头像
+        time.sleep(8)
+        projectname = self.driver.find_elements(By.XPATH, "//h5[text()='ERC-20']")
+        print(projectname)
+        if projectname == []:
+            time.sleep(5)
+            # 点击New，新建项目
+            self.driver.find_element('css selector', '.btn.btn-success').click()
+            time.sleep(5)
+            # 输入项目名称
+            self.driver.find_element('css selector', '.form-control').clear()
+            self.driver.find_element('css selector', '.form-control').send_keys('ERC-20')
+            time.sleep(5)
+            # select ERC20
+            self.driver.find_element(By.XPATH, '//div[text()="Coin"]').click()
+            # click ERC20
+            time.sleep(2)
+            self.driver.find_element(By.XPATH, "//button[text()='ERC20 Token']").click()
+            # 点击Create Project
+            self.driver.find_element('css selector', '.ml-2.btn.btn-primary').click()
+            # self.driver.find_element(By.XPATH, '//button[text()="Create Project"]').click()
         else:
-            print('未build')
-            self.driver.find_element(By.ID, 'tooltip-build-btn').click()
+            self.driver.find_element(By.XPATH, "//h5[text()='ERC-20']").click()
+            # TestClass.visibility_by_xpath(self, "//h1[@id='coin']")
+            element = WebDriverWait(self.driver, 20).until(
+                EC.presence_of_element_located((By.ID, "erc-20-token"))
+            )
+            print(element)
+            if element != "":
+                print("into the project！")
+                logging.info("into the project！")
+            else:
+                print("entry project failure")
+                logging.info("entry project failure")
+            logging.info("已创建ERC-20,进入该项目~~")
+        # 获取到项目类型名称
+        projectType = self.driver.find_element('css selector', ".rc-tree-title").text
+        print(projectType)
+        # Tools.Build.Build(self.driver)
+        Tools.NetworkSwitch.Link_Network(self.driver)
+        Tools.Deploy.deploy(self.driver)
+        PageOperation.Contract.into_contract_debug(self.driver)
+        PageOperation.Contract.approve(self.driver)
+        # Tools.DeleteProject.delete_Project(self.driver, projectType)
 
-    @allure.story('连接网络')
-    def test_Link_Network(self):
-        self.driver.find_element(By.XPATH, '//*[text()="Network"]').click()
-        self.driver.find_elements('css selector', '.nav-dropdown-toggle.p-0.dropdown-toggle')[3].click()
-        time.sleep(2)
-        # 滚动Network下拉菜单
-        self.driver.execute_script(
-            "document.getElementsByClassName('dropdown-menu dropdown-menu-right show')[0].scrollTop=600")  # 滚动到底部
-        time.sleep(2)
-        # 点击conflux测试网
-        self.driver.find_element(By.XPATH, "//h6[text()='Conflux espace']/following-sibling::button[2]").click()
 
-        self.driver.find_element('css selector', '.nav-link-content').click()
-
-    @allure.story('部署')
-    def test_deploy(self):
-        # 点击部署
-        time.sleep(5)
-        self.driver.find_element(By.ID, 'toolbar-btn-deploy').click()
-        time.sleep(10)
-        # 点击预估
-        self.driver.find_element(By.XPATH, '//button[text()="Estimate & Deploy"]').click()
-        # 等待部署后的弹框
-        self.driver.implicitly_wait(20)
-        # 点击deploy
-        self.driver.find_element(By.XPATH, '//button[text()="Deploy"]').click()
-        # ele = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.ID, '1')))  # 60s
-        self.driver.implicitly_wait(120)
-
-        # wait = WebDriverWait(self.driver, 120, 0.2)
-        # wait.until(EC.visibility_of(self.driver.find_element(By.XPATH, "//span[text()='CONFIRMED']")))
-        print(123)
 
     @allure.story('退出浏览器，清除cookie')
     def Exit_DeleteCookie(self):
